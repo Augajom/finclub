@@ -19,11 +19,11 @@ void main() {
       // 7 days total interest = 19.62 * 7 = 137.34
       expect(res.totalInterest, closeTo(137.34, 0.2));
 
-      // Revenue / Service fee (1% of 20000 = 200.00)
-      expect(res.revenueFee, 200.0);
+      // Revenue / Service fee (58.1% of 20,000 = 11,620.00)
+      expect(res.revenueFee, 11620.0);
 
-      // Total repayment = 20000 + 137.34 + 200.00 = 20337.34
-      expect(res.totalAmount, closeTo(20337.34, 0.25));
+      // Total repayment = 20000 + 137.34 + 11620.00 = 31757.34
+      expect(res.totalAmount, closeTo(31757.34, 0.25));
     });
 
     test('Calculates 50,000 THB max loan accurately', () {
@@ -37,21 +37,22 @@ void main() {
       expect(res.interestPerDay, closeTo(49.04, 0.05));
       // Total 7-day interest = 49.04 * 7 = 343.28
       expect(res.totalInterest, closeTo(343.28, 0.2));
-      // Revenue fee (1% = 500.0)
-      expect(res.revenueFee, 500.0);
-      // Total amount = 50000 + 343.28 + 500 = 50843.28
-      expect(res.totalAmount, closeTo(50843.28, 0.25));
+      // Revenue fee (58.1% of 50,000 = 29,050.0)
+      expect(res.revenueFee, 29050.0);
+      // Total amount = 50000 + 343.28 + 29050 = 79393.28
+      expect(res.totalAmount, closeTo(79393.28, 0.25));
     });
 
-    test('Ensures minimum revenue fee is at least 50 THB for small loans', () {
+    test('Calculates 58.1% revenue fee for small loans', () {
       final res = SevenDayLoanResult.compute(
         principal: 1000.0,
         annualRate: 35.80,
       );
 
       expect(res.principal, 1000.0);
-      expect(res.revenueFee, greaterThanOrEqualTo(50.0));
-      expect(res.totalAmount, greaterThan(1050.0));
+      // 58.1% of 1,000 = 581.00
+      expect(res.revenueFee, 581.0);
+      expect(res.totalAmount, closeTo(1587.87, 0.25));
     });
   });
 }

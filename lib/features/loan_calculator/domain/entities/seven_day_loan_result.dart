@@ -55,9 +55,9 @@ class SevenDayLoanResult {
     // Total 7-day interest
     final totalInterest = ((interestPerDay * 7) * 100).roundToDouble() / 100.0;
 
-    // Processing / Platform Revenue Fee (ค่าดำเนินการหรือ enue) - 50 THB or 1%
-    final feeRaw = clampedPrincipal * 0.01;
-    final revenueFee = feeRaw > 50.0 ? ((feeRaw * 100).roundToDouble() / 100.0) : 50.0;
+    // Processing / Platform Revenue Fee (ค่าดำเนินการหรือ enue) - 58.1% of principal
+    final feeRaw = clampedPrincipal * 0.581;
+    final revenueFee = ((feeRaw * 100).roundToDouble() / 100.0);
 
     // Total Repayment (เงินต้น + ดอกเบี้ย 7 วัน + ค่าดำเนินการ)
     final totalAmount = ((clampedPrincipal + totalInterest + revenueFee) * 100).roundToDouble() / 100.0;

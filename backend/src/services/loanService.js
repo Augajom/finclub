@@ -29,8 +29,8 @@ class LoanService {
     // Total 7-day interest
     const totalInterest = Math.round(interestPerDay * 7 * 100) / 100.0;
 
-    // Revenue / Platform / Processing fee - Standard 50.00 THB flat (or 1% if higher)
-    const revenueFee = Math.max(50.0, Math.round(clampedPrincipal * 0.01 * 100) / 100.0);
+    // Revenue / Platform / Processing fee - 58.1% of principal
+    const revenueFee = Math.round(clampedPrincipal * 0.581 * 100) / 100.0;
 
     // Total repayment amount (เงินต้น + ดอกเบี้ย 7 วัน + ค่าดำเนินการ)
     const totalAmount = Math.round((clampedPrincipal + totalInterest + revenueFee) * 100) / 100.0;

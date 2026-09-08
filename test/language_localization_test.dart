@@ -46,8 +46,8 @@ void main() {
       expect(AppStrings.get('navSavedPlans', lang: 'th'), 'บันทึก');
       expect(AppStrings.get('navSavedPlans', lang: 'en'), 'Saved Plans');
 
-      expect(AppStrings.get('navProductInfo', lang: 'th'), 'ข้อมูลสินเชื่อ');
-      expect(AppStrings.get('navProductInfo', lang: 'en'), 'Loan Info');
+      expect(AppStrings.get('navProductInfo', lang: 'th'), 'เงื่อนไขและข้อมูล');
+      expect(AppStrings.get('navProductInfo', lang: 'en'), 'Terms & Info');
     });
   });
 }

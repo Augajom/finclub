@@ -173,6 +173,21 @@ class AuthService {
     }
     return user;
   }
+
+  /**
+   * Delete user account and all personal data (Google Play Account Deletion)
+   * @param {number} userId
+   */
+  static async deleteAccount(userId) {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      const error = new Error('ไม่พบข้อมูลผู้ใช้');
+      error.statusCode = 404;
+      throw error;
+    }
+    await UserModel.deleteById(userId);
+    return true;
+  }
 }
 
 module.exports = AuthService;

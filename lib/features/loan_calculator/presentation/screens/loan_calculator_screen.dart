@@ -116,12 +116,126 @@ class LoanCalculatorScreen extends StatelessWidget {
                       }
                     },
                   ),
+
+                const Divider(height: 16),
+
+                // Delete Account Option (Google Play Policy Compliance)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: AppColors.error.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(Icons.delete_forever_rounded, color: AppColors.error),
+                  ),
+                  title: Text(
+                    langCtrl.tr('deleteAccount'),
+                    style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.error),
+                  ),
+                  subtitle: Text(
+                    langCtrl.tr('deleteAccountSubtitle'),
+                    style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded, color: AppColors.error),
+                  onTap: () {
+                    Navigator.of(modalCtx).pop();
+                    _onDeleteAccount(context);
+                  },
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  void _onDeleteAccount(BuildContext context) async {
+    final langCtrl = LanguageProvider.of(context);
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        title: Row(
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: AppColors.error, size: 28),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                langCtrl.tr('deleteAccountConfirmTitle'),
+                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16, color: AppColors.error),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          langCtrl.tr('deleteAccountConfirmMsg'),
+          style: const TextStyle(fontSize: 13, color: AppColors.textSecondary, height: 1.4),
+        ),
+        actionsPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        actions: [
+          Row(
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 46,
+                  child: OutlinedButton(
+                    onPressed: () => Navigator.of(ctx).pop(false),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: AppColors.textPrimary,
+                      side: const BorderSide(color: AppColors.border, width: 1.5),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    child: Text(
+                      langCtrl.tr('cancel'),
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: SizedBox(
+                  height: 46,
+                  child: ElevatedButton(
+                    onPressed: () => Navigator.of(ctx).pop(true),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.error,
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    child: Text(
+                      langCtrl.tr('deleteAccount'),
+                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && context.mounted) {
+      final authCtrl = AuthController.of(context);
+      await authCtrl.deleteAccount();
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(langCtrl.tr('deleteAccountSuccess')),
+            backgroundColor: AppColors.error,
+          ),
+        );
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const WelcomeAuthScreen()),
+          (route) => false,
+        );
+      }
+    }
   }
 
   void _onLogout(BuildContext context) async {
@@ -312,43 +426,81 @@ class LoanCalculatorScreen extends StatelessWidget {
   }
 
   Widget _buildTrustFooter(LanguageController langCtrl) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.background,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.background,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.verified_user_rounded, color: AppColors.primary, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  langCtrl.tr('trustFooterTitle'),
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.textPrimary,
+              Row(
+                children: [
+                  const Icon(Icons.verified_user_rounded, color: AppColors.primary, size: 18),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      langCtrl.tr('trustFooterTitle'),
+                      style: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                langCtrl.tr('trustFooterDesc'),
+                style: const TextStyle(
+                  fontSize: 11,
+                  height: 1.5,
+                  color: AppColors.textSecondary,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
-          Text(
-            langCtrl.tr('trustFooterDesc'),
-            style: const TextStyle(
-              fontSize: 11,
-              height: 1.5,
-              color: AppColors.textSecondary,
-            ),
+        ),
+        const SizedBox(height: 12),
+
+        // Legal Disclaimer Card (Crucial for Google Play Compliance)
+        Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: AppColors.warningLight.withValues(alpha: 0.5),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.warning.withValues(alpha: 0.4)),
           ),
-        ],
-      ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(Icons.info_outline_rounded, color: AppColors.warning, size: 18),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      langCtrl.tr('disclaimerTitle'),
+                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      langCtrl.tr('disclaimerContent'),
+                      style: const TextStyle(fontSize: 10, color: AppColors.textSecondary, height: 1.4),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -90,6 +90,10 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
 
             // Customer Support Contact
             _buildSupportSection(langCtrl),
+            const SizedBox(height: 20),
+
+            // Legal Disclaimer Card
+            _buildDisclaimerCard(langCtrl),
             const SizedBox(height: 28),
           ],
         ),
@@ -132,7 +136,7 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
             langCtrl.tr('tagline'),
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 19,
+              fontSize: 16,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -592,6 +596,40 @@ class _ProductInfoScreenState extends State<ProductInfoScreen> {
                       ? 'โทร: 02-123-4567 • ทุกวัน 08:30 - 18:00 น.'
                       : 'Tel: 02-123-4567 • Mon - Sun 08:30 - 18:00',
                   style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDisclaimerCard(LanguageController langCtrl) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.warningLight.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.warning.withValues(alpha: 0.4)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(Icons.info_outline_rounded, color: AppColors.warning, size: 20),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  langCtrl.tr('disclaimerTitle'),
+                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  langCtrl.tr('disclaimerContent'),
+                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, height: 1.4),
                 ),
               ],
             ),

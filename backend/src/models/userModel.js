@@ -72,9 +72,23 @@ class UserModel {
    * @param {string} ipAddress
    * @param {string} userAgent
    */
-  static async logTermsAcceptance(userId, ipAddress, userAgent) {
-    const sql = `INSERT INTO \`terms_logs\` (\`user_id\`, \`ip_address\`, \`user_agent\`) VALUES (?, ?, ?)`;
-    await query(sql, [userId, ipAddress || null, userAgent || null]);
+  /**
+   * Delete user and associated data (Google Play Account Deletion Policy)
+   * @param {number} userId
+   * @returns {Promise<boolean>}
+   */
+  static async deleteById(userId) {
+    try {
+      await query('DELETE FROM `saved_plans` WHERE `user_id` = ?', [userId]);
+    } catch (_) {}
+    try {
+      await query('DELETE FROM `loans` WHERE `user_id` = ?', [userId]);
+    } catch (_) {}
+    try {
+      await query('DELETE FROM `terms_logs` WHERE `user_id` = ?', [userId]);
+    } catch (_) {}
+    const result = await query('DELETE FROM `users` WHERE `id` = ?', [userId]);
+    return result.affectedRows > 0;
   }
 }
 

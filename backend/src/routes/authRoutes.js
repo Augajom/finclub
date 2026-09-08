@@ -11,5 +11,6 @@ router.post('/login', AuthController.login);
 // Authenticated routes
 router.post('/accept-terms', requireAuth, AuthController.acceptTerms);
 router.get('/me', requireAuth, AuthController.getMe);
+router.delete('/account', requireAuth, AuthController.deleteAccount);
 
 module.exports = router;

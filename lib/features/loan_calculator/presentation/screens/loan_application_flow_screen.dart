@@ -64,7 +64,7 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(langCtrl.isThai ? 'สมัครสินเชื่อ Finclub 7 วัน' : 'Apply for Finclub 7-Day Loan'),
+        title: Text(langCtrl.isThai ? 'จำลองการประเมินสินเชื่อ 7 วัน' : '7-Day Loan Pre-Check Simulator'),
       ),
       body: Column(
         children: [
@@ -78,7 +78,7 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
                 _buildStepDivider(0),
                 _buildStepCircle(1, langCtrl.isThai ? 'ข้อมูล' : 'Details'),
                 _buildStepDivider(1),
-                _buildStepCircle(2, langCtrl.isThai ? 'ผลอนุมัติ' : 'Approval'),
+                _buildStepCircle(2, langCtrl.isThai ? 'ผลจำลอง' : 'Simulation'),
               ],
             ),
           ),
@@ -173,14 +173,14 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          langCtrl.isThai ? 'ตรวจสอบรายการสินเชื่อ 7 วันที่เลือก' : 'Review Selected 7-Day Loan',
+          langCtrl.isThai ? 'ตรวจสอบรายการจำลองสินเชื่อ 7 วันที่เลือก' : 'Review Selected 7-Day Simulation',
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 4),
         Text(
           langCtrl.isThai
-              ? 'สินเชื่อหมุนเวียนระยะสั้น Finclub อนุมัติไว โอนเงินเข้าบัญชีทันที'
-              : 'Finclub revolving short-term loan, fast approval, instant bank transfer',
+              ? 'จำลองการคำนวณและประเมินภาระดอกเบี้ยเบื้องต้น เพื่อการวางแผนทางการเงิน'
+              : 'Simulate interest and evaluate debt capacity for financial planning',
           style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 20),
@@ -261,9 +261,9 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         const SizedBox(height: 20),
 
         // Features Checklist
-        _buildBenefitRow(Icons.bolt_rounded, langCtrl.isThai ? 'อนุมัติเร็ว โอนเข้าบัญชีทันทีหลังได้รับอนุมัติ' : 'Fast automated approval with direct bank transfer'),
-        _buildBenefitRow(Icons.no_accounts_rounded, langCtrl.isThai ? 'ไม่ต้องใช้หลักทรัพย์หรือบุคคลค้ำประกัน' : 'No collateral or guarantor required'),
-        _buildBenefitRow(Icons.lock_rounded, langCtrl.isThai ? 'ความปลอดภัยตามมาตรฐานธนาคารแห่งประเทศไทย' : 'Compliant with Bank of Thailand security standards'),
+        _buildBenefitRow(Icons.calculate_rounded, langCtrl.isThai ? 'คำนวณภาระหนี้ DTI และดอกเบี้ยอัตโนมัติ' : 'Automated DTI and daily interest calculation'),
+        _buildBenefitRow(Icons.insights_rounded, langCtrl.isThai ? 'เพื่อการวางแผนการเงินส่วนบุคคลเบื้องต้น' : 'For personal financial planning and simulation'),
+        _buildBenefitRow(Icons.shield_rounded, langCtrl.isThai ? 'ไม่มีการตรวจเครดิตบูโรหรือทำสัญญาผูกมัดจริง' : 'No credit bureau check or contractual obligation'),
       ],
     );
   }
@@ -311,14 +311,14 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         const SizedBox(height: 4),
         Text(
           langCtrl.isThai
-              ? 'กรอกข้อมูลเพื่อประเมินความสามารถในการชำระหนี้ (DTI)'
-              : 'Enter details to evaluate debt repayment ability (DTI)',
+              ? 'กรอกข้อมูลเพื่อจำลองการประเมินความสามารถในการชำระหนี้ (DTI)'
+              : 'Enter details to simulate debt repayment ability (DTI)',
           style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         const SizedBox(height: 20),
 
         Text(
-          langCtrl.isThai ? 'ชื่อ-นามสกุล (ตามบัตรประชาชน)' : 'Full Name (as on ID Card)',
+          langCtrl.isThai ? 'ชื่อ-นามสกุล (ผู้ใช้งานจำลอง)' : 'Full Name (Simulated User)',
           style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 6),
@@ -404,7 +404,7 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         ),
         const SizedBox(height: 16),
         Text(
-          langCtrl.isThai ? 'ผ่านการประเมินเบื้องต้น!' : 'Pre-Approval Passed!',
+          langCtrl.isThai ? 'ผลการจำลองการประเมินเบื้องต้น!' : 'Simulation Pre-Check Passed!',
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w900,
@@ -414,8 +414,8 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         const SizedBox(height: 6),
         Text(
           langCtrl.isThai
-              ? 'ยินดีด้วย คุณ${_fullNameController.text} ได้รับสิทธิ์วงเงินสินเชื่อ Finclub 7 วัน'
-              : 'Congratulations ${_fullNameController.text}, you are eligible for Finclub 7-Day Loan',
+              ? 'คุณ${_fullNameController.text} มีความสามารถในการชำระหนี้อยู่ในเกณฑ์ปลอดภัยสำหรับการจำลองวงเงินนี้'
+              : 'Congratulations ${_fullNameController.text}, your debt capacity is within safe parameters for this simulation',
           textAlign: TextAlign.center,
           style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
         ),
@@ -443,14 +443,14 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(langCtrl.isThai ? 'วงเงินอนุมัติเบื้องต้น' : 'Pre-Approved Limit', style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+                  Text(langCtrl.isThai ? 'วงเงินจำลองที่ประเมิน' : 'Simulated Limit', style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
                       color: AppColors.successLight,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text('PRE-APPROVED (7 DAYS)', style: TextStyle(color: AppColors.success, fontSize: 10, fontWeight: FontWeight.w800)),
+                    child: const Text('SIMULATION RESULT (7 DAYS)', style: TextStyle(color: AppColors.success, fontSize: 10, fontWeight: FontWeight.w800)),
                   ),
                 ],
               ),
@@ -467,7 +467,7 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(langCtrl.isThai ? 'ระยะเวลาชำระคืน' : 'Repayment Period', style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+                  Text(langCtrl.isThai ? 'ระยะเวลารอบจำลอง' : 'Simulation Tenure', style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                   Text(
                     langCtrl.tr('tenureFixedDays'),
                     style: const TextStyle(fontWeight: FontWeight.w700),
@@ -504,18 +504,19 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.infoLight,
+            color: AppColors.warningLight.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.warning.withValues(alpha: 0.4)),
           ),
           child: Row(
             children: [
-              const Icon(Icons.info_rounded, color: AppColors.info, size: 20),
+              const Icon(Icons.info_rounded, color: AppColors.warning, size: 20),
               const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   langCtrl.isThai
-                      ? 'เจ้าหน้าที่ Finclub จะติดต่อกลับภายใน 1 วันทำการ เพื่อยืนยันเอกสารและโอนเงินเข้าบัญชี'
-                      : 'Finclub officer will contact you within 1 business day to verify documents and transfer funds',
+                      ? 'หมายเหตุ: ผลลัพธ์นี้เป็นเพียงการจำลองการคำนวณเบื้องต้นเพื่อการวางแผนทางการเงินเท่านั้น แอปพลิเคชัน Finclub ไม่มีบริการปล่อยสินเชื่อหรือโอนเงินกู้จริงแต่อย่างใด'
+                      : 'Notice: This is an estimated simulation result for financial planning purposes only. Finclub does not offer, broker, or disburse actual loans.',
                   style: const TextStyle(fontSize: 11, color: AppColors.textPrimary),
                 ),
               ),
@@ -536,7 +537,7 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
         ),
         child: ElevatedButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(langCtrl.isThai ? 'เสร็จสิ้นและกลับหน้าหลัก' : 'Finish & Back to Home'),
+          child: Text(langCtrl.isThai ? 'เสร็จสิ้นและกลับหน้าคำนวณ' : 'Finish & Back to Calculator'),
         ),
       );
     }
@@ -580,8 +581,8 @@ class _LoanApplicationFlowScreenState extends State<LoanApplicationFlowScreen> {
                     )
                   : Text(
                       _currentStep == 0
-                          ? (langCtrl.isThai ? 'ถัดไป: กรอกข้อมูล' : 'Next: Enter Details')
-                          : (langCtrl.isThai ? 'ส่งข้อมูลประเมินวงเงิน' : 'Submit for Evaluation'),
+                          ? (langCtrl.isThai ? 'ถัดไป: กรอกข้อมูลจำลอง' : 'Next: Enter Details')
+                          : (langCtrl.isThai ? 'ดูผลการจำลอง' : 'View Simulation Result'),
                     ),
             ),
           ),

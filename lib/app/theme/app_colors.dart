@@ -57,8 +57,9 @@ class AppColors {
   static const Color successLight = Color(0xFFD1FAE5);
   static const Color error = Color(0xFFEF4444);
   static const Color warning = Color(0xFFF59E0B);
+  static const Color warningLight = Color(0xFFFEF3C7);
   static const Color info = Color(0xFF3B82F6);
-  static const Color infoLight = Color(0xFFEFF6FF);
+  static const Color infoLight = Color(0xFFDBEAFE);
 
   // Financial Indicators
   static const Color income = Color(0xFF10B981);

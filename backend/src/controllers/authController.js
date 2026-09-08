@@ -80,6 +80,21 @@ class AuthController {
       next(error);
     }
   }
+
+  /**
+   * DELETE /api/auth/account (Google Play Account Deletion)
+   */
+  static async deleteAccount(req, res, next) {
+    try {
+      await AuthService.deleteAccount(req.user.id);
+      res.status(200).json({
+        success: true,
+        message: 'ลบบัญชีผู้ใช้และข้อมูลทั้งหมดเรียบร้อยแล้ว',
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = AuthController;

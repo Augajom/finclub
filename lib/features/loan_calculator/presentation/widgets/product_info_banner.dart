@@ -132,7 +132,7 @@ class ProductInfoBanner extends StatelessWidget {
                   langCtrl.tr('tagline'),
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w800,
                     letterSpacing: -0.3,
                   ),

@@ -27,13 +27,8 @@ class ApiService {
       return;
     }
 
-    if (!kIsWeb && Platform.isAndroid) {
-      // Android Emulator maps 10.0.2.2 to host machine's localhost:5000
-      _baseUrl = 'http://10.0.2.2:5000/api';
-    } else {
-      // Windows Desktop, iOS Simulator, Web, MacOS
-      _baseUrl = 'http://localhost:5000/api';
-    }
+    // Default to Production API
+    _baseUrl = 'https://api.finnova.co.th/api';
   }
 
   void setBaseUrl(String url) {
@@ -254,6 +249,31 @@ class ApiService {
       return await SessionService.instance.getUser();
     }
     return null;
+  }
+
+  /// DELETE /api/auth/account - Google Play Account Deletion Policy compliance
+  Future<bool> deleteAccount() async {
+    if (useLocalMockForTesting) {
+      await SessionService.instance.clearSession();
+      return true;
+    }
+
+    try {
+      final uri = Uri.parse('$_baseUrl/auth/account');
+      final headers = await _getHeaders();
+      if (!headers.containsKey('Authorization')) {
+        await SessionService.instance.clearSession();
+        return true;
+      }
+
+      final response = await http.delete(uri, headers: headers).timeout(const Duration(seconds: 8));
+      await SessionService.instance.clearSession();
+      return response.statusCode >= 200 && response.statusCode < 300;
+    } catch (e) {
+      debugPrint('[ApiService] Delete account error: $e');
+      await SessionService.instance.clearSession();
+      return true;
+    }
   }
 
   // ==========================================

@@ -6,7 +6,7 @@ class AppStrings {
     'th': {
       // General
       'appName': 'Finclub',
-      'tagline': 'สินเชื่อที่ออกแบบมาเพื่อความต้องการของคุณ',
+      'tagline': 'เครื่องมือคำนวณและวางแผนสินเชื่อที่ออกแบบมาเพื่อคุณ',
       'next': 'ถัดไป',
       'back': 'ย้อนกลับ',
       'cancel': 'ยกเลิก',
@@ -21,7 +21,7 @@ class AppStrings {
       'navCalculator': 'คำนวณสินเชื่อ',
       'navSchedule': 'ตารางผ่อน',
       'navSavedPlans': 'บันทึก',
-      'navProductInfo': 'ข้อมูลสินเชื่อ',
+      'navProductInfo': 'เงื่อนไขและข้อมูล',
 
       // Language Selection Screen
       'selectLanguageTitle': 'เลือกภาษาที่ต้องการใช้งาน',
@@ -32,7 +32,7 @@ class AppStrings {
 
       // Welcome Screen
       'welcomeTitle': 'ยินดีต้อนรับสู่ Finclub',
-      'welcomeSubtitle': 'สินเชื่อส่วนบุคคลดิจิทัล สะดวก รวดเร็ว ทันใจ',
+      'welcomeSubtitle': 'เครื่องมือคำนวณดอกเบี้ยและวางแผนทางการเงินเบื้องต้น',
       'registerBtn': 'สมัครสมาชิก',
       'loginBtn': 'เข้าสู่ระบบ',
       'alreadyHaveAccount': 'มีบัญชีอยู่แล้ว? เข้าสู่ระบบ',
@@ -40,7 +40,7 @@ class AppStrings {
 
       // Register Screen
       'registerTitle': 'สร้างบัญชีสมาชิก Finclub',
-      'registerSubtitle': 'กรอกข้อมูลเพื่อสมัครสมาชิกและใช้งานสินเชื่อ',
+      'registerSubtitle': 'กรอกข้อมูลเพื่อสมัครสมาชิกและบันทึกแผนคำนวณ',
       'emailLabel': 'อีเมล (Email)',
       'emailHint': 'example@email.com',
       'passwordLabel': 'รหัสผ่าน (Password)',
@@ -90,7 +90,7 @@ class AppStrings {
       'usePinInstead': 'ใช้รหัส PIN แทน',
       'switchAccount': 'เข้าสู่ระบบด้วยบัญชีอื่น',
 
-      // Security Settings Modal
+      // Security Settings Modal & Account Compliance
       'securityTitle': 'ความปลอดภัยและความเป็นส่วนตัว',
       'changePin': 'เปลี่ยนรหัส PIN 6 หลัก',
       'setPin': 'ตั้งค่ารหัส PIN 6 หลัก',
@@ -101,12 +101,19 @@ class AppStrings {
       'biometricEnabledToast': 'เปิดใช้งานสแกนลายนิ้วมือแล้ว',
       'biometricDisabledToast': 'ปิดใช้งานสแกนลายนิ้วมือแล้ว',
       'switchLanguage': 'เปลี่ยนภาษา / Switch Language',
+      'deleteAccount': 'ลบบัญชีผู้ใช้',
+      'deleteAccountSubtitle': 'ลบข้อมูลโปรไฟล์และประวัติการคำนวณทั้งหมดออกจากระบบถาวร',
+      'deleteAccountConfirmTitle': 'ยืนยันการลบบัญชีผู้ใช้ถาวร',
+      'deleteAccountConfirmMsg': 'คุณแน่ใจหรือไม่ว่าต้องการลบบัญชีผู้ใช้นี้?\n\nการดำเนินการนี้จะลบข้อมูลบัญชี ข้อมูลส่วนบุคคล ประวัติการคำนวณ และแผนที่บันทึกไว้ทั้งหมดออกจากเซิร์ฟเวอร์ และไม่สามารถกู้คืนได้อีกต่อไป',
+      'deleteAccountSuccess': 'ลบบัญชีผู้ใช้ของคุณเรียบร้อยแล้ว',
+      'disclaimerTitle': 'ข้อสงวนสิทธิ์ (Disclaimer)',
+      'disclaimerContent': 'แอปพลิเคชันนี้เป็นเพียงเครื่องมือคำนวณและจำลองภาระดอกเบี้ยเบื้องต้นเพื่อการวางแผนทางการเงินเท่านั้น ไม่ได้มีบริการปล่อยสินเชื่อหรือเป็นตัวแทนจัดหาเงินกู้จริงแต่อย่างใด',
 
       // Product Banner
-      'bannerTitle': 'สินเชื่อระยะสั้น 7 วัน',
-      'bannerSubtitle': 'ผ่อนสบาย ดอกเบี้ยรายวันตามจริง วงเงินสูงสุด 50,000 บาท',
-      'viewProductInfo': 'ดูข้อมูลสินเชื่อ',
-      'creditLimit': 'วงเงินสินเชื่อ',
+      'bannerTitle': 'คำนวณแผน 7 วัน',
+      'bannerSubtitle': 'จำลองภาระดอกเบี้ยรายวันตามจริง วงเงินสูงสุด 50,000 บาท',
+      'viewProductInfo': 'ดูเงื่อนไขการคำนวณ',
+      'creditLimit': 'วงเงินจำลอง',
       'maxAmount': 'สูงสุด 50,000 ฿',
       'amountRangeShort': 'เลือกได้ 1k-50k',
       'interestRate': 'อัตราดอกเบี้ย',
@@ -114,27 +121,27 @@ class AppStrings {
       'calcDaily': 'คำนวณรายวัน',
       'tenure': 'ระยะเวลาผ่อน',
       'tenureFixedDays': 'คงที่ 7 วัน',
-      'tenureOneTime': 'จ่ายครบจบใน 7 วัน',
+      'tenureOneTime': 'คำนวณรอบ 7 วัน',
 
       // 7-Day Loan Calculator Main Screen
-      'loan7DaysTitle': 'สินเชื่อระยะสั้น 7 วัน',
-      'loan7DaysSubtitle': 'ระยะเวลาผ่อนชำระคงที่ 7 วัน แสดงยอดชัดเจน โปร่งใส',
-      'selectAmount': 'เลือกวงเงินที่ต้องการกู้',
+      'loan7DaysTitle': 'เครื่องมือคำนวณแผน 7 วัน',
+      'loan7DaysSubtitle': 'ระยะเวลาคงที่ 7 วัน แสดงสูตรและยอดชัดเจน โปร่งใส',
+      'selectAmount': 'เลือกวงเงินที่ต้องการจำลองคำนวณ',
       'amountRange': 'วงเงิน 1,000 - 50,000 บาท',
-      'tenureFixedBadge': 'ผ่อนชำระ 7 วัน',
-      'principalLabel': 'เงินต้นที่ยืม',
+      'tenureFixedBadge': 'รอบคำนวณ 7 วัน',
+      'principalLabel': 'วงเงินที่คำนวณ',
       'dailyInterestLabel': 'ดอกเบี้ยต่อวัน',
       'sevenDaysInterestLabel': 'ดอกเบี้ยรวม 7 วัน',
-      'revenueFeeLabel': 'ค่าดำเนินการ',
-      'totalRepaymentLabel': 'ยอด Total รวมที่ต้องชำระ',
-      'dueDateLabel': 'กำหนดชำระคืนภายใน',
-      'apply7DayLoanBtn': 'ยื่นขอกู้ยืมสินเชื่อ',
-      'applySuccessTitle': 'ยื่นขอกู้สินเชื่อสำเร็จ!',
-      'applySuccessMsg': 'ระบบได้บันทึกคำขอและอนุมัติวงเงินของคุณเรียบร้อยแล้ว',
-      'receiptTitle': 'ใบสรุปรายการสินเชื่อ 7 วัน',
-      'confirmApplyTitle': 'ยืนยันการยื่นขอกู้สินเชื่อ 7 วัน',
-      'confirmApplyMsg': 'กรุณาตรวจสอบรายละเอียดสินเชื่อ 7 วัน ก่อนยืนยันการส่งคำขอ:',
-      'confirmApplyBtn': 'ยืนยันขอกู้',
+      'revenueFeeLabel': 'ค่าดำเนินการประมาณการ',
+      'totalRepaymentLabel': 'ยอด Total รวมประมาณการ',
+      'dueDateLabel': 'ครบกำหนดชำระรอบ 7 วัน',
+      'apply7DayLoanBtn': 'จำลองผลการประเมินสินเชื่อ',
+      'applySuccessTitle': 'จำลองการคำนวณสำเร็จ!',
+      'applySuccessMsg': 'ระบบได้แสดงผลจำลองการคำนวณและภาระดอกเบี้ยเบื้องต้นของคุณเรียบร้อยแล้ว (ไม่ใช่การกู้ยืมจริง)',
+      'receiptTitle': 'สรุปผลจำลองแผนคำนวณ 7 วัน',
+      'confirmApplyTitle': 'ยืนยันการจำลองแผนคำนวณ 7 วัน',
+      'confirmApplyMsg': 'กรุณาตรวจสอบรายละเอียดก่อนดูผลการจำลอง:',
+      'confirmApplyBtn': 'ดูผลลัพธ์จำลอง',
 
       // Schedule & Compare Tab
       'scheduleTabTitle': 'ตารางผ่อนชำระ 7 วัน & บันทึกแผน',
@@ -232,7 +239,7 @@ class AppStrings {
     'en': {
       // General
       'appName': 'Finclub',
-      'tagline': 'Loans tailored to your financial needs',
+      'tagline': 'Smart Loan & Interest Calculator',
       'next': 'Next',
       'back': 'Back',
       'cancel': 'Cancel',
@@ -247,7 +254,7 @@ class AppStrings {
       'navCalculator': 'Calculator',
       'navSchedule': 'Schedule',
       'navSavedPlans': 'Saved Plans',
-      'navProductInfo': 'Loan Info',
+      'navProductInfo': 'Terms & Info',
 
       // Language Selection Screen
       'selectLanguageTitle': 'Select Your Language',
@@ -258,7 +265,7 @@ class AppStrings {
 
       // Welcome Screen
       'welcomeTitle': 'Welcome to Finclub',
-      'welcomeSubtitle': 'Instant & Secure Digital Personal Loans',
+      'welcomeSubtitle': 'Digital Financial Planning & Loan Calculator',
       'registerBtn': 'Register',
       'loginBtn': 'Log In',
       'alreadyHaveAccount': 'Already have an account? Log In',
@@ -266,7 +273,7 @@ class AppStrings {
 
       // Register Screen
       'registerTitle': 'Create Finclub Account',
-      'registerSubtitle': 'Sign up to manage and calculate your loans',
+      'registerSubtitle': 'Sign up to calculate and save your financial plans',
       'emailLabel': 'Email Address',
       'emailHint': 'example@email.com',
       'passwordLabel': 'Password',
@@ -316,7 +323,7 @@ class AppStrings {
       'usePinInstead': 'Use PIN instead',
       'switchAccount': 'Log in with another account',
 
-      // Security Settings Modal
+      // Security Settings Modal & Account Compliance
       'securityTitle': 'Security & Privacy',
       'changePin': 'Change 6-Digit PIN',
       'setPin': 'Set 6-Digit PIN',
@@ -327,12 +334,19 @@ class AppStrings {
       'biometricEnabledToast': 'Biometric login enabled',
       'biometricDisabledToast': 'Biometric login disabled',
       'switchLanguage': 'Switch Language / เปลี่ยนภาษา',
+      'deleteAccount': 'Delete Account',
+      'deleteAccountSubtitle': 'Permanently remove your account and all saved data',
+      'deleteAccountConfirmTitle': 'Confirm Permanent Account Deletion',
+      'deleteAccountConfirmMsg': 'Are you sure you want to permanently delete your account?\n\nThis will permanently delete your account, personal info, and all saved calculations from the server. This action cannot be undone.',
+      'deleteAccountSuccess': 'Your account has been deleted successfully.',
+      'disclaimerTitle': 'Legal Disclaimer',
+      'disclaimerContent': 'This application is strictly a loan calculation and financial planning simulation tool. It does not provide, facilitate, or broker real loans or financial credit services.',
 
       // Product Banner
-      'bannerTitle': '7-Day Micro Loan',
-      'bannerSubtitle': 'Transparent daily interest, loan amount up to 50,000 THB',
-      'viewProductInfo': 'View Loan Info',
-      'creditLimit': 'Credit Limit',
+      'bannerTitle': '7-Day Plan Simulator',
+      'bannerSubtitle': 'Simulate daily interest on loans up to 50,000 THB',
+      'viewProductInfo': 'View Calculation Terms',
+      'creditLimit': 'Simulated Limit',
       'maxAmount': 'Max 50,000 ฿',
       'amountRangeShort': '1k-50k THB',
       'interestRate': 'Interest Rate',
@@ -340,27 +354,27 @@ class AppStrings {
       'calcDaily': 'Calculated daily',
       'tenure': 'Tenure',
       'tenureFixedDays': 'Fixed 7 Days',
-      'tenureOneTime': 'One-time repayment in 7 days',
+      'tenureOneTime': '7-Day Calculation Cycle',
 
       // 7-Day Loan Calculator Main Screen
-      'loan7DaysTitle': '7-Day Micro Loan',
-      'loan7DaysSubtitle': 'Fixed 7-day tenure with transparent breakdown',
-      'selectAmount': 'Select Loan Amount',
+      'loan7DaysTitle': '7-Day Loan Calculator',
+      'loan7DaysSubtitle': 'Fixed 7-day tenure with transparent calculation breakdown',
+      'selectAmount': 'Select Amount to Simulate',
       'amountRange': 'Range: 1,000 - 50,000 THB',
-      'tenureFixedBadge': '7-Day Tenure',
-      'principalLabel': 'Principal',
+      'tenureFixedBadge': '7-Day Cycle',
+      'principalLabel': 'Calculated Amount',
       'dailyInterestLabel': 'Daily Interest',
       'sevenDaysInterestLabel': '7-Day Interest',
-      'revenueFeeLabel': 'Service Fee',
-      'totalRepaymentLabel': 'Total Repayment',
+      'revenueFeeLabel': 'Estimated Service Fee',
+      'totalRepaymentLabel': 'Estimated Total',
       'dueDateLabel': 'Due Date (7 Days)',
-      'apply7DayLoanBtn': 'Apply for 7-Day Loan',
-      'applySuccessTitle': '7-Day Loan Approved!',
-      'applySuccessMsg': 'Your loan application has been submitted and approved.',
-      'receiptTitle': '7-Day Loan Summary Receipt',
-      'confirmApplyTitle': 'Confirm 7-Day Loan Application',
-      'confirmApplyMsg': 'Please review your 7-day loan details before confirming:',
-      'confirmApplyBtn': 'Confirm Loan',
+      'apply7DayLoanBtn': 'Simulate Loan Evaluation',
+      'applySuccessTitle': 'Simulation Completed!',
+      'applySuccessMsg': 'Estimated interest and calculation simulation generated successfully (Not a real loan).',
+      'receiptTitle': '7-Day Calculation Simulation Summary',
+      'confirmApplyTitle': 'Confirm 7-Day Plan Simulation',
+      'confirmApplyMsg': 'Review calculation details before generating simulation results:',
+      'confirmApplyBtn': 'View Simulation',
 
       // Schedule & Compare Tab
       'scheduleTabTitle': '7-Day Repayment Schedule & Saved Plans',

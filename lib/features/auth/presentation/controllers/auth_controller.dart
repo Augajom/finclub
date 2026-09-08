@@ -119,6 +119,22 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Delete Account and wipe user data (Google Play Account Deletion compliance)
+  Future<bool> deleteAccount() async {
+    _setLoading(true);
+    bool success = false;
+    try {
+      success = await ApiService.instance.deleteAccount();
+    } catch (_) {
+      await SessionService.instance.clearSession();
+      success = true;
+    }
+    _currentUser = null;
+    _setLoading(false);
+    notifyListeners();
+    return success;
+  }
+
   void _setLoading(bool val) {
     _isLoading = val;
     notifyListeners();

@@ -1,12 +1,12 @@
-/// Global application constants for Finclub Loan Application
+/// Global application constants for Finclub Loan & Interest Calculator
 class AppConstants {
   AppConstants._();
 
   // App Identity
   static const String appName = 'Finclub';
-  static const String appTagline = 'สินเชื่อที่ออกแบบมาเพื่อความต้องการของคุณ';
+  static const String appTagline = 'เครื่องมือคำนวณและวางแผนสินเชื่อที่ออกแบบมาเพื่อคุณ';
   static const String appDescription =
-      'คำนวณสินเชื่อส่วนบุคคลดิจิทัล วงเงินสูงสุด 50,000 บาท อัตราดอกเบี้ยสูงสุด 35.80% ต่อปี ผ่อนชำระ 7 วัน';
+      'เครื่องมือคำนวณและจำลองภาระดอกเบี้ยสินเชื่อเบื้องต้น วงเงินสูงสุด 50,000 บาท อัตราดอกเบี้ยสูงสุด 35.80% ต่อปี ไม่ใช่บริการกู้ยืมเงินจริง';
 
   // Currency & Formatting
   static const String currencySymbol = '฿';

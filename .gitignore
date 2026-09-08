@@ -56,3 +56,8 @@ backend/uploads/*
 
 # Temp Screenshots
 screen_*.png
+
+# Android Signing Keys
+*.jks
+*.keystore
+**/key.properties

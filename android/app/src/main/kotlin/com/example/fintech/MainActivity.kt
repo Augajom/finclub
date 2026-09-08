@@ -1,4 +1,4 @@
-package com.example.fintech
+package com.finclub.calculator
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

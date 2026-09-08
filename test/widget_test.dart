@@ -98,15 +98,15 @@ void main() {
 
     // 5. Main 7-Day Fixed Loan Calculator Screen
     expect(find.text('Finclub'), findsWidgets);
-    expect(find.text('ผ่อนชำระ 7 วัน'), findsOneWidget);
+    expect(find.text('รอบคำนวณ 7 วัน'), findsOneWidget);
 
     // Verify 4 required metrics are displayed:
-    expect(find.text('เงินต้นที่ยืม'), findsWidgets);
+    expect(find.text('วงเงินที่คำนวณ'), findsWidgets);
     expect(find.text('ดอกเบี้ยต่อวัน'), findsWidgets);
-    expect(find.text('ค่าดำเนินการ'), findsWidgets);
-    expect(find.text('ยอด Total รวมที่ต้องชำระ'), findsWidgets);
+    expect(find.text('ค่าดำเนินการประมาณการ'), findsWidgets);
+    expect(find.text('ยอด Total รวมประมาณการ'), findsWidgets);
 
     // Verify Apply button
-    expect(find.text('ยื่นขอกู้ยืมสินเชื่อ'), findsOneWidget);
+    expect(find.text('จำลองผลการประเมินสินเชื่อ'), findsOneWidget);
   });
 }

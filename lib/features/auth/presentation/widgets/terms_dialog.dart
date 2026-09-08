@@ -118,8 +118,8 @@ class _TermsDialogState extends State<TermsDialog> {
                       _buildTermParagraph(
                         langCtrl.isThai ? '1. วัตถุประสงค์และการให้บริการ' : '1. Purpose & Service Scope',
                         langCtrl.isThai
-                            ? 'Finclub ให้บริการระบบคำนวณและยื่นขอสินเชื่อระยะสั้น 7 วัน เพื่อเสริมสภาพคล่องทางการเงิน ภายใต้ข้อกำหนดและกฎหมายที่เกี่ยวข้อง'
-                            : 'Finclub provides a calculation and application platform for short-term 7-day micro loans to assist with liquidity under applicable laws.',
+                            ? 'Finclub ให้บริการระบบเครื่องมือคำนวณและจำลองภาระดอกเบี้ยสินเชื่อ เพื่อเป็นข้อมูลในการวางแผนทางการเงินเบื้องต้น โดยไม่มีบริการปล่อยกู้หรือจัดหาเงินกู้จริง'
+                            : 'Finclub provides a loan calculation and financial planning simulation tool. It does not offer, broker, or disburse actual loans.',
                       ),
                       _buildTermParagraph(
                         langCtrl.isThai ? '2. การคิดอัตราดอกเบี้ยและค่าธรรมเนียม' : '2. Interest Rates & Fees',
@@ -128,16 +128,22 @@ class _TermsDialogState extends State<TermsDialog> {
                             : 'Interest is calculated on a daily basis capped at 35.80% p.a., with fully transparent service fees and total repayment amounts.',
                       ),
                       _buildTermParagraph(
-                        langCtrl.isThai ? '3. การชำระคืนเงินกู้' : '3. Loan Repayment',
+                        langCtrl.isThai ? '3. การจำลองแผนการผ่อนชำระ' : '3. Payment Schedule Simulation',
                         langCtrl.isThai
-                            ? 'ผู้กู้ตกลงชำระคืนเงินต้นพร้อมดอกเบี้ยและค่าธรรมเนียมภายในกำหนดเวลา 7 วันนับจากวันที่ได้รับอนุมัติเงินกู้'
-                            : 'Borrower agrees to repay principal, accrued interest, and fees in full within 7 days from the approval date.',
+                            ? 'ผลการคำนวณและตารางผ่อนชำระทั้งหมดเป็นการจำลองทางคณิตศาสตร์เพื่อประกอบการตัดสินใจทางการเงินของผู้ใช้เท่านั้น ไม่ถือเป็นสัญญาเงินกู้ที่มีผลผูกพันทางกฎหมาย'
+                            : 'All calculation results and payment schedules are mathematical simulations for user decision-making, and do not constitute a legally binding loan contract.',
                       ),
                       _buildTermParagraph(
                         langCtrl.isThai ? '4. การคุ้มครองข้อมูลส่วนบุคคล (PDPA)' : '4. Privacy & Data Protection (PDPA)',
                         langCtrl.isThai
                             ? 'Finclub จะเก็บรักษาข้อมูลส่วนบุคคล ข้อมูลอีเมล และภาพถ่ายโปรไฟล์ของผู้ใช้งานด้วยระบบความปลอดภัยมาตรฐาน และไม่เปิดเผยต่อบุคคลภายนอกโดยไม่ได้รับความยินยอม'
                             : 'Finclub safeguards user emails and profile data with industry standards and will not disclose them to third parties without consent.',
+                      ),
+                      _buildTermParagraph(
+                        langCtrl.isThai ? '5. สิทธิในการลบบัญชีและข้อมูล (Account Deletion)' : '5. Account & Data Deletion',
+                        langCtrl.isThai
+                            ? 'ผู้ใช้งานมีสิทธิ์ขอลบบัญชีผู้ใช้และข้อมูลส่วนตัวทั้งหมดออกจากระบบได้ตลอดเวลาผ่านเมนูความปลอดภัยในแอปพลิเคชัน'
+                            : 'Users have the right to permanently delete their account and personal data anytime via the in-app security settings.',
                       ),
                     ],
                   ),

@@ -80,9 +80,7 @@ class _SevenDayCalculatorWidgetState extends State<SevenDayCalculatorWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              langCtrl.isThai
-                  ? 'กรุณาตรวจสอบรายละเอียดสินเชื่อ 7 วัน ก่อนยืนยันการส่งคำขอ:'
-                  : 'Please review your 7-day loan details before confirming:',
+              langCtrl.tr('confirmApplyMsg'),
               style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 14),
@@ -149,7 +147,7 @@ class _SevenDayCalculatorWidgetState extends State<SevenDayCalculatorWidget> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     child: Text(
-                      langCtrl.isThai ? 'ยืนยันขอกู้' : 'Confirm',
+                      langCtrl.tr('confirmApplyBtn'),
                       style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14),
                     ),
                   ),
@@ -575,6 +573,23 @@ class _SevenDayCalculatorWidgetState extends State<SevenDayCalculatorWidget> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                         ),
                       ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.info_outline_rounded, size: 14, color: AppColors.textMuted),
+                        const SizedBox(width: 6),
+                        Flexible(
+                          child: Text(
+                            langCtrl.isThai
+                                ? 'ผลการคำนวณเป็นการจำลองเพื่อการวางแผนการเงิน ไม่ใช่การกู้ยืมจริง'
+                                : 'Simulated calculation for planning only. Not an actual loan.',
+                            style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

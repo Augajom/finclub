@@ -53,13 +53,22 @@ class AuthController {
       const userId = req.user.id;
       const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       const userAgent = req.headers['user-agent'];
+      const baseUrl = `${req.protocol}://${req.get('host')}`;
 
-      const updatedUser = await AuthService.acceptTerms(userId, ipAddress, userAgent);
+      let evidenceUrl = null;
+      if (req.file) {
+        evidenceUrl = `${baseUrl}/uploads/capture_policy/${req.file.filename}`;
+      }
+
+      const updatedUser = await AuthService.acceptTerms(userId, ipAddress, userAgent, evidenceUrl);
 
       res.status(200).json({
         success: true,
         message: 'บันทึกการยอมรับข้อกำหนดและเงื่อนไขเรียบร้อยแล้ว',
-        data: { user: updatedUser },
+        data: {
+          user: updatedUser,
+          evidence_url: evidenceUrl,
+        },
       });
     } catch (error) {
       next(error);

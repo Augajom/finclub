@@ -9,7 +9,7 @@ router.post('/register', upload.single('avatar'), AuthController.register);
 router.post('/login', AuthController.login);
 
 // Authenticated routes
-router.post('/accept-terms', requireAuth, AuthController.acceptTerms);
+router.post('/accept-terms', requireAuth, upload.single('evidence'), AuthController.acceptTerms);
 router.get('/me', requireAuth, AuthController.getMe);
 router.delete('/account', requireAuth, AuthController.deleteAccount);
 

@@ -65,5 +65,6 @@ CREATE TABLE IF NOT EXISTS `terms_logs` (
   `accepted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `ip_address` VARCHAR(45) DEFAULT NULL,
   `user_agent` VARCHAR(255) DEFAULT NULL,
+  `evidence_image_url` VARCHAR(500) DEFAULT NULL,
   CONSTRAINT `fk_terms_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

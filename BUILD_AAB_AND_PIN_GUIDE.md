@@ -205,3 +205,43 @@ C:\app\fintech\build\app\outputs\bundle\release\app-release.aab
   flutter pub get
   flutter build appbundle --release
   ```
+
+---
+
+## 📸 6. ระบบบันทึกภาพหน้าจอหลักฐานการยอมรับเงื่อนไข (Policy Consent Evidence)
+
+ระบบบันทึกภาพหน้าจอขณะลูกค้ากด **"ยอมรับข้อตกลงและเข้าสู่ระบบ"** เพื่อใช้เป็นพยานหลักฐานทางอิเล็กทรอนิกส์ (Audit Trail) ตาม พ.ร.บ. ว่าด้วยธุรกรรมทางอิเล็กทรอนิกส์ พ.ศ. 2544 และ PDPA
+
+### 6.1 โฟลเดอร์จัดเก็บภาพบนเซิร์ฟเวอร์
+- รูปภาพหลักฐานทั้งหมดจะถูกจัดเก็บไว้ที่:
+  ```text
+  C:\app\fintech\backend\uploads\capture_policy\
+  ```
+- ชื่อไฟล์ถูกตั้งโดยอัตโนมัติ: `terms-evidence-[timestamp]-[random].png`
+
+### 6.2 การบันทึกลงฐานข้อมูล (MySQL)
+ตาราง `terms_logs` จัดเก็บข้อมูลครบถ้วน:
+```sql
+CREATE TABLE IF NOT EXISTS `terms_logs` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL,
+  `accepted_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `ip_address` VARCHAR(45) DEFAULT NULL,
+  `user_agent` VARCHAR(255) DEFAULT NULL,
+  `evidence_image_url` VARCHAR(500) DEFAULT NULL,
+  CONSTRAINT `fk_terms_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+);
+```
+- ข้อมูลที่ถูกบันทึกพร้อมภาพ:
+  1. `user_id`: บัญชีผู้ใช้ที่กดยอมรับ
+  2. `accepted_at`: วันเวลาที่กดยืนยันตามเวลาเซิร์ฟเวอร์
+  3. `ip_address`: IP Address ของผู้ใช้ขณะทำรายการ
+  4. `user_agent`: ข้อมูลระบบปฏิบัติการและรุ่นอุปกรณ์
+  5. `evidence_image_url`: URL/Path ของไฟล์ภาพใน `uploads/capture_policy`
+
+### 6.3 การทำงานใน Flutter (iOS & Android 100%)
+- ใช้ `RepaintBoundary` แปลง UI ของไดอะล็อกข้อตกลงและสถานะติ๊กถูกเป็นภาพ PNG ความละเอียดสูง (`pixelRatio: 2.0`)
+- **ไม่ต้องขอ Permissions** ใดๆ บนมือถือ ไม่กระทบ Sandbox ของ iOS และ Android
+- มีแถบข้อความแจ้งเตือนทางกฎหมายอย่างโปร่งใสตามเกณฑ์ของ Google Play Store & PDPA
+- ส่งข้อมูลขึ้นเซิร์ฟเวอร์ผ่าน `POST /api/auth/accept-terms` (Multipart Form Data)
+

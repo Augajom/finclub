@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../../../../app/theme/app_colors.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/localization/language_controller.dart';
@@ -29,15 +32,32 @@ class TermsDialog extends StatefulWidget {
 }
 
 class _TermsDialogState extends State<TermsDialog> {
+  final GlobalKey _captureKey = GlobalKey();
   bool _isAgreed = false;
   bool _isSubmitting = false;
 
   void _onAccept() async {
-    if (!_isAgreed) return;
+    if (!_isAgreed || _isSubmitting) return;
 
     setState(() => _isSubmitting = true);
+
+    Uint8List? screenshotBytes;
+    try {
+      final boundary = _captureKey.currentContext?.findRenderObject() as RenderRepaintBoundary?;
+      if (boundary != null && !boundary.debugNeedsPaint && boundary.hasSize && boundary.size.width > 0 && boundary.size.height > 0) {
+        final ui.Image image = await boundary.toImage(pixelRatio: 2.0);
+        final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+        if (byteData != null) {
+          screenshotBytes = byteData.buffer.asUint8List();
+        }
+      }
+    } catch (e) {
+      debugPrint('Terms evidence capture error: $e');
+    }
+
+    if (!mounted) return;
     final authCtrl = AuthController.of(context);
-    await authCtrl.acceptTerms();
+    await authCtrl.acceptTerms(imageBytes: screenshotBytes);
 
     if (!mounted) return;
     setState(() => _isSubmitting = false);
@@ -51,13 +71,19 @@ class _TermsDialogState extends State<TermsDialog> {
 
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        constraints: const BoxConstraints(maxWidth: 420, maxHeight: 580),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
+      child: RepaintBoundary(
+        key: _captureKey,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          constraints: const BoxConstraints(maxWidth: 420, maxHeight: 600),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header
             Row(
               children: [
                 Container(
@@ -193,7 +219,32 @@ class _TermsDialogState extends State<TermsDialog> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 10),
+
+            // Legal Audit Notice (Appears inside the captured screenshot evidence)
+            Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.15)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.verified_user_outlined, size: 14, color: AppColors.primary),
+                  const SizedBox(width: 6),
+                  Expanded(
+                    child: Text(
+                      langCtrl.isThai
+                          ? 'ระบบจะบันทึกภาพหน้าจอและข้อมูลอิเล็กทรอนิกส์ไว้เป็นหลักฐานการยินยอม'
+                          : 'System records this screen capture and electronic logs as legal consent evidence',
+                      style: const TextStyle(fontSize: 10, color: AppColors.textSecondary),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
             // Accept Button
             SizedBox(
@@ -221,8 +272,9 @@ class _TermsDialogState extends State<TermsDialog> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildTermParagraph(String title, String content) {
     return Padding(

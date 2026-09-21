@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../../../core/network/api_service.dart';
 import '../../../../core/services/session_service.dart';
@@ -97,11 +98,11 @@ class AuthController extends ChangeNotifier {
     }
   }
 
-  /// Accept terms and conditions
-  Future<bool> acceptTerms() async {
+  /// Accept terms and conditions (with optional captured evidence screenshot)
+  Future<bool> acceptTerms({Uint8List? imageBytes}) async {
     _setLoading(true);
     try {
-      final updated = await ApiService.instance.acceptTerms();
+      final updated = await ApiService.instance.acceptTerms(imageBytes: imageBytes);
       _currentUser = updated;
       _setLoading(false);
       notifyListeners();

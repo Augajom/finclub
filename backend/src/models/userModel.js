@@ -67,11 +67,31 @@ class UserModel {
   }
 
   /**
-   * Log terms acceptance
+   * Log terms acceptance with IP, User Agent, and Evidence Screenshot
    * @param {number} userId
    * @param {string} ipAddress
    * @param {string} userAgent
+   * @param {string|null} evidenceImageUrl
    */
+  static async logTermsAcceptance(userId, ipAddress, userAgent, evidenceImageUrl = null) {
+    try {
+      const sql = `
+        INSERT INTO \`terms_logs\` (\`user_id\`, \`ip_address\`, \`user_agent\`, \`evidence_image_url\`)
+        VALUES (?, ?, ?, ?)
+      `;
+      await query(sql, [userId, ipAddress, userAgent, evidenceImageUrl]);
+    } catch (err) {
+      try {
+        const fallbackSql = `
+          INSERT INTO \`terms_logs\` (\`user_id\`, \`ip_address\`, \`user_agent\`)
+          VALUES (?, ?, ?)
+        `;
+        await query(fallbackSql, [userId, ipAddress, userAgent]);
+      } catch (innerErr) {
+        console.error('Failed to log terms acceptance in database:', innerErr.message);
+      }
+    }
+  }
   /**
    * Delete user and associated data (Google Play Account Deletion Policy)
    * @param {number} userId

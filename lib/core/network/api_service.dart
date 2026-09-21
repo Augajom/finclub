@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io' show Platform;
+import 'dart:typed_data';
 import 'package:flutter/foundation.dart' show kIsWeb, debugPrint;
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -28,7 +29,7 @@ class ApiService {
     }
 
     // Default to Production API
-    _baseUrl = 'https://api.finnova.co.th/api';
+    _baseUrl = 'http://10.0.2.2:5000/api';
   }
 
   void setBaseUrl(String url) {
@@ -190,13 +191,38 @@ class ApiService {
     }
   }
 
-  /// POST /api/auth/accept-terms
-  Future<UserEntity> acceptTerms() async {
+  /// POST /api/auth/accept-terms (with optional evidence screenshot capture)
+  Future<UserEntity> acceptTerms({Uint8List? imageBytes}) async {
+    if (useLocalMockForTesting) {
+      await SessionService.instance.updateTermsAccepted(true);
+      final currentUser = await SessionService.instance.getUser();
+      return currentUser?.copyWith(hasAcceptedTerms: true) ??
+          const UserEntity(id: 1, email: 'user@finclub.com', hasAcceptedTerms: true);
+    }
+
     try {
       final uri = Uri.parse('$_baseUrl/auth/accept-terms');
       final headers = await _getHeaders();
 
-      final response = await http.post(uri, headers: headers).timeout(const Duration(seconds: 8));
+      http.Response response;
+      if (imageBytes != null && imageBytes.isNotEmpty) {
+        final request = http.MultipartRequest('POST', uri);
+        headers.remove('Content-Type');
+        request.headers.addAll(headers);
+        request.files.add(
+          http.MultipartFile.fromBytes(
+            'evidence',
+            imageBytes,
+            filename: 'policy_capture_${DateTime.now().millisecondsSinceEpoch}.png',
+            contentType: MediaType('image', 'png'),
+          ),
+        );
+        final streamedResponse = await request.send().timeout(const Duration(seconds: 15));
+        response = await http.Response.fromStream(streamedResponse);
+      } else {
+        response = await http.post(uri, headers: headers).timeout(const Duration(seconds: 8));
+      }
+
       final data = jsonDecode(response.body) as Map<String, dynamic>;
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -208,6 +234,7 @@ class ApiService {
         throw Exception(data['message'] ?? 'บันทึกการยอมรับเงื่อนไขล้มเหลว');
       }
     } catch (e) {
+      debugPrint('acceptTerms error or offline fallback: $e');
       await SessionService.instance.updateTermsAccepted(true);
       final currentUser = await SessionService.instance.getUser();
       return currentUser?.copyWith(hasAcceptedTerms: true) ??

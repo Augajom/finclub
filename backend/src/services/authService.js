@@ -146,10 +146,11 @@ class AuthService {
    * @param {number} userId
    * @param {string} ipAddress
    * @param {string} userAgent
+   * @param {string|null} evidenceUrl
    */
-  static async acceptTerms(userId, ipAddress, userAgent) {
+  static async acceptTerms(userId, ipAddress, userAgent, evidenceUrl = null) {
     await UserModel.updateTermsAccepted(userId, true);
-    await UserModel.logTermsAcceptance(userId, ipAddress, userAgent);
+    await UserModel.logTermsAcceptance(userId, ipAddress, userAgent, evidenceUrl);
 
     const user = await UserModel.findById(userId);
     return {

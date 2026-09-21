@@ -4,19 +4,29 @@ const fs = require('fs');
 
 // Ensure uploads folder exists
 const uploadDir = path.join(__dirname, '../../uploads');
+const capturePolicyDir = path.join(uploadDir, 'capture_policy');
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
+}
+if (!fs.existsSync(capturePolicyDir)) {
+  fs.mkdirSync(capturePolicyDir, { recursive: true });
 }
 
 // Storage engine config
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    if (file.fieldname === 'evidence') {
+      cb(null, capturePolicyDir);
+    } else {
+      cb(null, uploadDir);
+    }
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, 'avatar-' + uniqueSuffix + ext);
+    const prefix = file.fieldname === 'evidence' ? 'terms-evidence' : 'avatar';
+    cb(null, prefix + '-' + uniqueSuffix + ext);
   },
 });
 
